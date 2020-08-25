@@ -1,0 +1,13 @@
+
+##Open Folders##
+alias js="cd ~/Desktop/automation/javascript; pwd; lsl"
+
+alias ncw="cd ~/Desktop/automation/javascript/_new_cad_workflow; pwd;lsl"
+
+alias mockScripts="cd /Volumes/Customization/Library/Scripts/mockup_scripts; pwd;lsl"
+
+alias setupScripts="cd /Volumes/Customization/Library/Scripts/setup_scripts; pwd; lsl"
+
+alias networkLogs="cd /Volumes/Customization/Library/Script\ Resources/Data/.script_logs; pwd; lsl"
+
+alias builderJson="cd /Volumes/Customization/Library/Scripts/Script\ Resources/Data/json_design_files; pwd"

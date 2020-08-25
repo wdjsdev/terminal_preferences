@@ -1,0 +1,60 @@
+
+
+##
+#Bash Variables
+##
+
+#exp
+exp="resourcePath/.exp/exp.js"
+
+#print date
+printDate="/Users/will.dowling/Desktop/automation/exp/print_date.js"
+
+#automation folder
+auto="/Users/will.dowling/Desktop/automation"
+
+#network scripts folder path
+scriptsFolder="/Volumes/Customization/Library/Scripts"
+
+#completed templates folder
+ctArchive="/Users/will.dowling/Desktop/converted_template_backups"
+
+#network storage of mockup scripts
+netMockScripts="$scriptsFolder/mockup_scripts"
+nms="$scriptsFolder/mockup_scripts/"
+
+#network storage of mockup scripts
+netMockExporterScripts="$scriptsFolder/mockup_exporter_scripts"
+nme="$scriptsFolder/mockup_exporter_scripts"
+
+#network storage of setup scripts
+netSetupScripts="$scriptsFolder/setup_scripts"
+nss="$scriptsFolder/setup_scripts"
+
+#network storage of template builder scripts
+netTemplateBuilder="$scriptsFolder/template_builder"
+ntb="$scriptsFolder/template_builder"
+
+#local storage of script data
+data=~/"Desktop/automation/Data"
+
+resourcePath="$scriptsFolder/Script_Resources"
+
+#network storage of script data
+ndata=$resourcePath/Data
+
+#network storage of script components
+ncomp="$resourcePath/components"
+
+drComp="/Volumes/CustomizationDR/Library/Scripts/Script_Resources/components"
+
+#network storage of add artwork components
+naacomp="$resourcePath/components/add_artwork"
+
+#network storage of mockup builder components
+nbmcomp="$resourcePath/components/mockup_builder"
+
+#network storage of merge template components
+nmtcomp="$resourcePath/components/merge_templates"
+
+nmecomp="$resourcePath/components/mockup_exporter"

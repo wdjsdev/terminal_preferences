@@ -1,0 +1,378 @@
+addAlias()
+{
+	echo alias $1=\"$2\" >> ~/.w_bash_aliases
+	echo "" >> ~/.bashrc
+}
+
+subl()
+{
+	open -a "Sublime Text" $1 &&
+	echo Opened File: $1 in Sublime Text.
+}
+
+
+opr()
+{
+
+	seq1=$1
+	seq2=$2
+
+	pause()
+	{
+		read -n1 -s
+	}
+
+	openTheFiles()
+	{
+		for x in `seq $seq1 $seq2`;
+		do
+			seqNum=$(printf %03d $x)
+			open *$seqNum*
+			pause	
+		done
+	}
+
+	if [[ $1 && $2 ]]
+	then
+		openTheFiles
+	else
+		echo You must include a range
+		echo Example:
+		echo opr 000 005
+	fi
+}
+
+openEach()
+{
+	files=${PWD}/*
+	for f in $files
+	do
+		name=$(basename $f)
+		echo "Press enter to open $name"
+		read -n1 -s
+		open $f
+		echo "opened file: $name"
+		echo
+	done
+}
+
+gmlpw()
+{
+  loc=~/Desktop/.pw/.gml/gmlpw.txt
+  echo $loc
+  echo $(cat $loc)
+}
+
+
+chex()
+{
+  if [[ $1 && $2 ]]; then
+    for file in *.$1
+      do
+	mv "$file" "${file%.$1}.$2"
+      done
+  else
+    echo "You must give 2 arguments."
+    echo "chex oldExt newExt"
+    echo "chex ait ai"
+  fi
+}
+   
+
+settemp(){
+  unlink ~/temp
+  ln -s "${PWD}" ~/temp
+}
+
+readTemp(){
+	readlink ~/temp
+}
+
+newTemp()
+{
+	if [[ $1 ]]; then
+		style=$1
+		open ~/makeTemplate/blank/
+		open ~/makeTemplate/pp/*$1*
+		open ~/makeTemplate/mu/*$1*
+	else
+		echo "You must give a style number as an argument."
+		echo "makeTemplate [style number]"
+		echo "makeTemplate 005"
+	fi
+}
+
+setbl()
+{
+	unlink ~/makeTemplate/blank
+	ln -s "${PWD}/"$1 ~/makeTemplate/blank
+}
+
+setmu()
+{
+	unlink ~/makeTemplate/mu
+	ln -s "${PWD}/" ~/makeTemplate/mu
+}
+
+setpp()
+{
+	unlink ~/makeTemplate/pp
+	ln -s "${PWD}/" ~/makeTemplate/pp
+}
+
+archive()
+{
+	if [[ $1 ]]; then
+		mkdir $ctArchive/$1
+		mv * $ctArchive/$1/
+	fi
+}
+
+
+#get json data
+getJson()
+{
+	if [[ $1 ]]; then
+
+		#json folder
+		dest=/Volumes/Customization/Library/Scripts/Script\ Resources/Data/json_design_files/
+
+		url="https://forms.na2.netsuite.com/app/site/hosting/scriptlet.nl?script=908&deploy=1&compid=460511&h=940572c6865fbbe12e98&designId=$1"
+
+		touch "$dest/$1.json"
+
+		curl $url > "$dest/$1.json" &&
+		subl "$dest/$1.json"
+
+	else
+		echo "You must enter a design number."
+	fi
+}
+
+
+#rename files in current directory
+rn()
+{
+	if [[ $1 && $2 ]]; then
+		rename s/$1/$2/g *
+	else
+		echo "You must enter two arguments."
+		echo "The first argument is the pattern to change."
+		echo "The second argument is the new pattern."
+	fi
+}
+
+#git add and commit
+commit()
+{
+	if [[ $1 ]]; then
+		git add -A
+		git commit -m "$1"
+
+	else
+		echo "Please enter a commit message."
+	fi
+}
+
+#get the status of the current git repo
+status()
+{
+	git status
+}
+
+
+#get the path of the current document and save it to the clipboard
+#including variable declaration syntax
+getPath()
+{
+	echo "var path = \"${PWD}\";" | pbcopy
+}
+
+
+vars()
+{
+	less ~/.w_bash_variables
+}
+
+
+updateExp()
+{
+	node $printDate > $exp
+}
+
+gitInit()
+{
+	dirName=${PWD##*/}
+	git init
+	git add -A
+	git commit -m "Initial Commit"
+
+	git remote add origin https://github.com/wdjsdev/$dirName.git
+}
+
+gitPush()
+{
+	git push -u origin master
+}
+
+getRepos()
+{
+	printScript=~/Desktop/automation/utilities/get_repos.js
+	gitRepos=`curl -s https://api.github.com/users/wdjsdev/repos`
+	echo "function getNames()" > $printScript
+	echo "{" >> $printScript
+	echo "	var data = $gitRepos;" >> $printScript
+	echo "	var len = data.length;" >> $printScript
+	echo "	for(var x=0;x<len;x++)" >> $printScript
+	echo "	{" >> $printScript
+	# echo "		console.log(data[x].html_url);" >> $printScript
+	echo "		console.log(data[x].name);" >> $printScript
+	echo "	}" >> $printScript
+	echo "}" >> $printScript
+	echo "getNames();" >> $printScript
+	# node ~/Desktop/automation/get_repos.js
+	node $printScript
+}
+
+clone()
+{
+	if [[ $1 ]];then
+		git clone https://github.com/wdjsdev/$1 &&
+		cd $1
+	else
+		echo "You must enter the name of the git repo you want to clone."
+	fi
+}
+
+# bitInit()
+# {
+# 	dirName=${PWD##*/}
+# 	git init
+# 	git add -A
+# 	# git commit -m "Initial Commit"
+
+# 	git remote add origin https://bitbucket.org/Silly-V/variablestickerscript/src/master/$dirName.git
+# }
+
+bitClone()
+{
+	if [[ $1 ]];then
+		git clone -b dev https://bitbucket.org/Silly-V/$1.git
+	else
+		echo "You must enter the name of the git repo you want to clone."
+	fi
+	# git clone -b dev https://bitbucket.org/Silly-V/"PAi ArtPackMaker.git"
+	
+}
+
+searchDir()
+{
+	if [[ $1 ]];then
+		egrep -lir "($1)" .
+	else
+		echo "Please enter a regex argument."
+	fi
+}
+
+mk()
+{
+	if [[ $1 ]];then
+		mkdir -p -- "$1" &&
+		cd -P -- "$1"
+	else
+		echo "Please enter a name for the directory."
+	fi
+}
+
+evalBin()
+{	
+	#jsx to jsxbin compiler script
+	compiler="~/automatic_binary_conversion/jsxbin_compiler.jsx"
+
+	projectFolder=${PWD} &&
+	mainScript=$projectFolder/*Dev.js* &&
+	components=$projectFolder/components &&
+
+	#make sure that there's a bin_comp folder in 
+	#the project folder
+	if [ ! -d "bin_comp" ]; then
+		mkdir $projectFolder/bin_comp
+		echo "made a bin_comp folder"
+	fi
+	binComp=$projectFolder/bin_comp
+
+	#make sure there's a convert_to_binary folder
+	if [ ! -d ~/automatic_binary_conversion/convert_to_binary ]; then
+		mkdir ~/automatic_binary_conversion/convert_to_binary
+		echo "made a convert_to_binary folder"
+	fi
+	convertedFiles=~/automatic_binary_conversion/binary_converted &&
+
+	#make sure there's a binary_converted folder
+	if [ ! -d ~/automatic_binary_conversion/binary_converted ]; then
+		mkdir ~/automatic_binary_conversion/binary_converted
+		echo "made a binary_converted folder"
+	fi
+	filesToConvert=~/automatic_binary_conversion/convert_to_binary
+
+	cp $mainScript $filesToConvert &&
+	echo "copied mainScript"
+
+	cp $components/*.js $filesToConvert &&
+	echo "copied components"
+
+	osascript -e 'quit app "ExtendScript Toolkit"'
+
+	/Volumes/Macintosh\ HD/Applications/Adobe\ ExtendScript\ Toolkit\ CC/ExtendScript\ Toolkit.app/Contents/MacOs/ExtendScript\ Toolkit -cmd $compiler &&
+
+	mv $convertedFiles/*.jsx $projectFolder &&
+	echo "Moved $(basename $projectFolder/*.jsx) binary file to project folder."
+
+	mv $convertedFiles/*.jsxbin $binComp &&
+	echo "Moved binary components to bin_comp"
+
+	rm $filesToConvert/* &&
+	echo "Successfully created binary files."
+}
+
+owUtil()
+{
+	util="$auto/utilities/Utilities_Container.js"
+	cp $util $ndata && 
+	echo "Successfully overwrote the utilities container."
+}
+
+owAddArt()
+{
+	addArt="$auto/add_artwork/Add_Artwork.jsx"
+	comp="$auto/add_artwork/bin_comp"
+	cp $addArt $nss && echo "Successfully overwrote Add_Artwork.js on network." &&
+	rm $naacomp/*.js* &&
+	cp $comp/*.js* $naacomp && echo "Successfully overwrote Add Artwork components on network."
+}
+
+owBuildTemp()
+{
+	bt="$auto/build_template"
+	cp $bt/*.jsx $ntb &&
+	echo "Successfully overwrote build_template scripts."
+}
+
+owBuildMock()
+{
+	bm="$auto/build_mockup"
+	bmc="$bm/bin_comp"
+	cp $bm/Build_Mockup.jsx $nms &&
+	cp $bmc/*.js* $nbmcomp &&
+	echo "Successfully overwrote build_mockup scripts."
+}
+
+owMerge()
+{
+	mt="$auto/merge_templates"
+	mtc="$mt/bin_comp"
+	rm $nmtcomp/*.js* &&
+	cp $mtc/*.js* $nmtcomp &&
+	cp "$mt/Merge_Templates.jsx" $nms &&
+	echo "Successfully overwrote merge_templates scripts."
+}

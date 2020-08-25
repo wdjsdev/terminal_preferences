@@ -1,0 +1,20 @@
+
+##Open Files##
+
+##  addart  ##
+alias addart="open -a \"Sublime Text\" ~/Desktop/automation/javascript/_new_cad_workflow/add_artwork/Add_Artwork.jsx;echo Opened File: Add_Artwork.jsx"
+
+##  addlib  ##
+##  this library has been deprecated
+##  please use the centralized library
+##  with alias centrallib
+#alias addlib="open -a \"Sublime Text\" ~/Desktop/automation/javascript/_new_cad_workflow/add_artwork/Data/library.js;echo Opened File: library.js"
+
+##  buildtemp  ##
+alias buildtemp="open -a \"Sublime Text\" ~/Desktop/automation/javascript/_new_cad_workflow/build_template/Build_Template.js;echo Opened File: Build_Template.js"
+
+##  centrallib ##
+alias centrallib="open -a \"Sublime Text\" ~/Desktop/automation/javascript/_new_cad_workflow/central_library/central_library.js;echo Opened File: central_library.js"
+
+## blank mockup template ##
+alias blankmockup="open /Volumes/Customization/Library/cads/full_dye/_\*_Blank_Mockup_Template_\*_/_Generic_Mockup_Template_.ait"

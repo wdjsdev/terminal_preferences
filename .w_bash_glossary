@@ -1,0 +1,150 @@
+#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/
+                                                                                            
+  .g8"""bgd `7MMF'        .g8""8q.    .M"""bgd  .M"""bgd      db      `7MM"""Mq.`YMM'   `MM'
+.dP'     `M   MM        .dP'    `YM. ,MI    "Y ,MI    "Y     ;MM:       MM   `MM. VMA   ,V  
+dM'       `   MM        dM'      `MM `MMb.     `MMb.        ,V^MM.      MM   ,M9   VMA ,V   
+MM            MM        MM        MM   `YMMNq.   `YMMNq.   ,M  `MM      MMmmdM9     VMMP    
+MM.    `7MMF' MM      , MM.      ,MP .     `MM .     `MM   AbmmmqMA     MM  YM.      MM     
+`Mb.     MM   MM     ,M `Mb.    ,dP' Mb     dM Mb     dM  A'     VML    MM   `Mb.    MM     
+  `"bmmmdPY .JMMmmmmMMM   `"bmmd"'   P"Ybmmd"  P"Ybmmd" .AMA.   .AMMA..JMML. .JMM. .JMML. 
+
+#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/
+
+######################
+	Aliai
+######################
+
+gloss : display this glossary file
+
+eda : edit alias file with vim
+
+lsl : list all, long format, hidden files, no gibberish
+	-shows all contents with only:
+		File Type
+		Modified Date
+		File Name
+
+todo : display todo list
+
+vtodo : open todo list in vim
+
+bashrc : open ~./bashrc in vim
+
+src : reload ~/.bashrc in current terminal
+	-use this after any changes are made to any:
+		Aliases
+		Functions
+		Open_File commands
+		Open_Folder commands
+		Over_Write commands
+
+prepress : cd to network prepress folder and display all directories
+
+snippets : cd to Sublime snippets directory
+
+vimhq : display vim quick shortcuts file
+	-this file includes proper syntax as well as usage examples
+
+addart : open "Add_Artwork.js" in Sublime
+
+addlib : open "Library.js" in Sublime
+
+blankmockup : open blank scriptable mockup file
+
+buildtemp : open "Build_Template.js" in sublime
+
+js : cd to local javascript directory
+
+ncw : cd to _new_cad_workflow directory
+
+mockScripts : cd to network Mockup Scripts directory
+
+setupScripts : cd to network Setup Scripts directory
+
+mockups : cd to network "cads/full_dye" folder. (mockup files)
+
+## Overwrite Network files
+owlib : overwrite the library file
+
+owaddart : overwrite the add artwork script
+
+owblock : overwrite the color blocks script
+
+owthrucut : overwrite the thru cut script
+
+owartboard : overwrite the create artboards script
+
+owgetcollars : overwrite the get collars script
+
+owsmash : overwrite the color smasher script
+
+owmerge : overwrite the merge templates script
+
+owinfo : overwrite the mockup info script
+
+owgettemp : overwrite the get template script
+
+
+######################
+	Aliai
+######################
+
+
+##########################
+	Functions
+##########################
+
+gmlpw : display gmail password to screen
+
+todoadd : add an item to the todo list
+	syntax : todoadd description | id_code
+	example : todoadd "Add something to todo list" "id20"
+	
+	*note* : no warnings will be given if arguments are missing
+
+rmtodo : remove an item from the todo list
+	syntax : rmtodo id_code
+	example : rmtodo "id20"
+
+	*note* : if no argument given, nothing will happen
+
+addAlias : add a new alias to the ~/.w_bash_aliases file
+	syntax : addAlias alias_name alias_command
+	example: addAlias "back2" "cd ../.."
+
+subl : open a file in Sublime Text
+	syntax : subl [file.ext]
+	example : subl theFile.js
+
+	*note* : if no argument given, Sublime text simply activates
+		 nothing happens to currently open files
+
+op : open one or more files in the current directory
+	syntax : op [number_of_files]
+	example : op
+		opens first file in current directory
+	example : op 3
+		opens first 3 files in current directory
+
+opr : open range of files from current directory one at a time, then wait for keypress
+	syntax : opr file_name first_in_sequence last_in_sequence extension
+	example : opr "FD_SLOW_SS_" "000" "005" ".ait"
+
+	*note* : not currently working as of 6 October. Need to account for zero fill
+		 currently tries to open "FD_SLOW_SS_5.ait"
+
+chex : change extension. batch rename all files in the current directory.
+	syntax : chex oldExtension newExtension
+	example : chex ait ai
+
+settemp : create a temporary symlink to the current directory
+	syntax : settemp
+
+readtemp : display the target directory of the 'temp' directory
+	syntax : readtemp
+
+##########################
+	Functions
+##########################
+
+

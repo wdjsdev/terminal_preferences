@@ -1,0 +1,27 @@
+
+##  overwrite network library file with local library
+alias owlib="cp ~/Desktop/automation/javascript/_new_cad_workflow/add_artwork/Data/library.js /Volumes/Customization/Library/Scripts/Script\ Resources/Data/; echo Successfully overwrote network Library.js file."  
+
+## overwrite setup scripts on network
+alias owaddart="cp ~/Desktop/automation/javascript/_new_cad_workflow/add_artwork/Add_Artwork.jsx ~/netScripts/~Illustrator\ Scripts~; echo Successfully overwrote network Add_Artwork.jsx file."
+
+alias owblock="cp ~/Desktop/automation/javascript/color_blocks/Color_Blocks.jsx ~/netScripts/~Illustrator\ Scripts~; echo Successfully overwrote network Color_Blocks.jsx file."
+
+
+alias owthrucut="cp ~/Desktop/automation/javascript/check_thrucut/Check_Thru_Cut.jsx ~/netScripts/~Illustrator\ Scripts~; echo Successfully overwrote network Check_Thru_Cut.jsx file."
+
+alias owartboard="cp ~/Desktop/automation/javascript/create_artboards/Create_Artboards.jsx ~/netScripts/~Illustrator\ Scripts~; echo Successfully Overwrote network Create_Artboards.jsx file."
+
+alias getcollars="cp ~/Desktop/automation/javascript/_new_cad_workflow/get_collars/Get_Collars.jsx ~/netScripts/~Illustrator\ Scripts~; echo Successfully Overwrote network Get_Collars.jsx file."
+
+## overwrite mockup scripts on network
+
+alias owsmash="cp ~/Desktop/automation/javascript/color_smasher/Color_Smasher.jsx ~/netScripts/~New\ Mockup\ Process~; echo Successfully overwrote network Color_Smasher.jsx file."
+
+
+alias owinfo="cp ~/Desktop/automation/javascript/_new_cad_workflow/mockup_info/Mockup_Info.jsx ~/netScripts/~New\ Mockup\ Process~; echo Successfully overwrote network Mockup_Info.jsx file."
+
+alias owmerge="cp ~/Desktop/automation/javascript/_new_cad_workflow/merge_templates/Merge_Templates.jsx ~/netScripts/~New\ Mockup\ Process~; echo Successfully overwrote network Merge_Templates.jsx file."
+
+alias owgettemp="cp ~/Desktop/automation/javascript/_new_cad_workflow/Get_Template/Get_Template.jsx ~/netScripts/~New\ Mockup\ Process~; echo Successfully overwrote network Get_Template.jsx file."
+

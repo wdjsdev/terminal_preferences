@@ -1,0 +1,36 @@
+alias eda="vim ~/.w_bash_aliases"
+
+alias vtodo="vim ~/.todo"
+
+alias todo="less ~/.todo"
+
+alias bashrc="vim ~/.bashrc"
+
+alias vimrc="vim ~/.vimrc"
+
+alias src="source ~/.bashrc"
+
+alias vimhq="less ~/.vimhq"
+
+alias aliai="less ~/.bashrc"
+
+alias prepress="cd /Volumes/Customization/Library/cads/prepress/; pwd;ls -a"
+
+alias snippets="cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/;pwd;ls -al"
+
+alias mockups="cd /Volumes/Customization/Library/cads/full_dye/; ls;pwd"
+
+#alias guidelines="open /Volumes/Customization/Creative/Development/Sports/*guidelines*"
+alias guidelines="cd /Volumes/Customization/Creative/Development/Sports/"
+
+#alias curProj="cd ~/Desktop/automation/template_creation/cur_proj/; ls;pwd"
+
+alias scriptLogs="cd /Volumes/Customization/Library/Scripts/Script\ Resources/Data/.script_logs && pwd && ls"
+
+alias localLogs="cd ~/Desktop/automation/script_logs && pwd && ls"
+
+alias netComp="cd /Volumes/Customization/Library/Scripts/Script\ Resources/components && pwd && ls"
+
+alias backup="chmod +x ~/Desktop/wait_test.sh && bash ~/Desktop/wait_test.sh"
+
+alias b="cd .. && ls"
