@@ -1,0 +1,18 @@
+alias ow="subl ~/.w_bash_over_write"
+
+#local storage location variable
+# localStorage="~/Desktop/automation/"
+
+#us network storage locations
+us_s_storage="/Volumes/Customization/Library/Scripts/setup_scripts"
+us_m_storage="/Volumes/Customization/Library/Scripts/mockup_scripts"
+# us_resource_storage="/Volumes/Customization/Library/Scripts/Script\ Resources/Data"
+us_build_mock_comp_storage="$ndata/components/mockup_builder"
+
+#script variables
+aalib="$auto/Data/central_library.js"
+btlib="$auto/Data/build_template_library.js"
+util="$auto/Data/Utilities_Container.js"
+
+##removing dr stuff from owlib for now
+alias owlib="cp $aalib $ndata && cp $util $ndata && cp $btlib $ndata && echo Successfully overwrote network Library.js file."  

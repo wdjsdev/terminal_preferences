@@ -12,8 +12,8 @@ netScripts="/Volumes/Customization/Library/Scripts"
 drScripts="/Volumes/CustomizationDR/Library/Scripts"
 
 #network script resources folder
-scriptResources="$netScripts/Script_Resources"
-drScriptResources="$drScripts/Script_Resources"
+scriptResources="$netScripts/Script_Resources/"
+drScriptResources="$drScripts/Script_Resources/"
 
 #script logs folder
 scriptLogs="$scriptResources/Data/.script_logs";
@@ -69,7 +69,7 @@ drComp="$drScriptResources/components"
 naacomp="$ncomp/add_artwork"
 
 #network storage of mockup builder components
-nbmcomp="$ncomp/build_mockup"
+nbmcomp="$ncomp/mockup_builder"
 nbmBetaComp="$ncomp/build_mockup_beta"
 
 #network storage of merge template components

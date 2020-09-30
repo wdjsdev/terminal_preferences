@@ -1,0 +1,77 @@
+#printing in progress folder
+pip="/Volumes/Customization/1_Active Orders/3_Printing IN PROGRESS"
+
+#setup in progress order
+sip="/Volumes/Customization/1_Active Orders/2_Setup IN PROGRESS"
+
+fo="/Volumes/Customization/2_Filed Orders"
+
+jobFolders="/Volumes/Macintosh HD/Users/will.dowling/Desktop/current_orders/job_folders"
+salesOrders="/Volumes/Macintosh HD/Users/will.dowling/Desktop/current_orders/sales_orders"
+
+# william in progress
+# network storage of my setups in progress 
+wip="/Volumes/Customization/Design Mockups/A_Setup In Progress/William"
+
+needsSetupFolder="/Volumes/Customization/Design Mockups/A_Approved Needs Setup"
+needsChecked="/Volumes/Customization/Design Mockups/A_Setup In Progress/Needs To Be Checked/IHFD- Dominican"
+
+pip()
+{
+	cd "$pip"
+}
+sip()
+{
+	cd "$sip"
+}
+needsSetup()
+{
+	cd "$needsSetupFolder"
+}
+
+
+# send the given pdf to needs to be checked
+check()
+{
+	if [[ "$1" ]];then
+		mv -v "$1" "$needsChecked"
+	fi
+}
+
+# send the given folder to setup in progress to overwrite existing folder
+# then move folder to printing in progress
+toSip()
+{
+	if [[ $1 ]];then
+		cp -rv "$1" "$sip" &&
+		echo
+		echo "Successfully copied files to Setup In Progress."
+		echo
+		echo
+		echo
+		echo "Moving folder from sip to pip."
+		echo
+		mv -v "$sip/$1" "$pip" &&
+		echo "Successfully copied files to Printing In Progress."
+		echo
+		mv -v "$1" "$jobFolders/complete/"
+		echo
+		echo
+		echo "Successfully moved folder to archive"
+		echo
+	else
+		echo "copy what??"
+	fi
+}
+
+# send the given job folder to the printing in progress folder
+toPip()
+{
+	if [[ $1 ]];then
+		cp -rv "$1" "$pip" && 
+		echo "Successfully copied files to Printing In Progress."
+	else
+		echo "copy what??"
+	fi
+}
+

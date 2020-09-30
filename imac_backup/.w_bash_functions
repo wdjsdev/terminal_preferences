@@ -1,14 +1,3 @@
-fresh()
-{
-	clear
-	pwd
-}
-
-fr()
-{
-	fresh
-}
-
 addAlias()
 {
 	echo alias $1=\"$2\" >> ~/.w_bash_aliases
@@ -257,11 +246,20 @@ targetCodes()
 
 importJob()
 {
-	if [[ $1 ]];then
-		cp -r "$1" $auto/imported_job_folders/
-	else
-		echo "please include the directory as an argument."
-	fi
+	srcFolder="/Volumes/Customization/1_Active\ Orders/2_Setup\ IN PROGRESS"
+	destFolder="~/Desktop/current_orders/job_folders"
+	
+	set -x
+	cp -rv "$srcFolder/$1*" &&
+	echo "found in setup in prog" &&
+	return
+
+	srcFolder="/Volumes/Customization/1_Active\ Orders/3_Printing\ IN PROGRESS"
+
+	cp -rv "$srcFolder/$1*" &&
+	echo "found in printing in prog"
+	return
+	set +x
 }
 
 mk()
@@ -439,133 +437,12 @@ clone()
 	fi
 }
 
-binaryConversionDev()
-{
-	filesToConvert=~/automatic_binary_conversion/convert_to_binary
 
-	rm $filesToConvert/*
-	cp *.js* $filesToConvert
-
-	node $HOME/.vscode/extensions/adobe.extendscript-debug-1.1.2/public-scripts/exportToJSX.js -n "$filesToConvert/"
-
-	ls $filesToConvert
-
-}
-
-
-openSetupFolders()
-{
-	custPath=/Volumes/Customization
-
-	DM=$custPath/Design\ Mockups
-	cd "$DM" && open .
-	SIP=$custPath/1_Active\ Orders/2_Setup\ IN\ PROGRESS
-	cd "$SIP" && open .
-	PIP=$custPath/1_Active\ Orders/3_Printing\ IN\ PROGRESS
-	cd "$PIP" && open .
-	FO=$custPath/2_Filed\ Orders
-	cd "$FO" && open .
-}
-
-# testing new version below
-
-# projectToBinary()
-# {	
-# 	#jsx to jsxbin compiler script
-# 	# compiler="~/automatic_binary_conversion/jsxbin_compiler.jsx"
-
-# 	projectFolder=${PWD} &&
-# 	mainScript=$projectFolder/*Dev.js* &&
-# 	components=$projectFolder/components &&
-
-# 	#make sure that there's a bin_comp folder in 
-# 	#the project folder
-# 	if [ ! -d "bin_comp" ]; then
-# 		mkdir $projectFolder/bin_comp
-# 		echo "made a bin_comp folder"
-# 	fi
-# 	binComp=$projectFolder/bin_comp
-
-# 	#make sure there's a convert_to_binary folder
-# 	if [ ! -d ~/automatic_binary_conversion/convert_to_binary ]; then
-# 		mkdir ~/automatic_binary_conversion/convert_to_binary
-# 		echo "made a convert_to_binary folder"
-# 	fi
-
-# 	filesToConvert=~/automatic_binary_conversion/convert_to_binary
-	
-
-# 	# #make sure there's a binary_converted folder
-# 	# if [ ! -d ~/automatic_binary_conversion/binary_converted ]; then
-# 	# 	mkdir ~/automatic_binary_conversion/binary_converted
-# 	# 	echo "made a binary_converted folder"
-# 	# fi
-# 	# convertedFiles=~/automatic_binary_conversion/binary_converted
-
-# 	rm -rf $filesToConvert/* >/dev/null 2>&1
-
-# 	cp -v $mainScript $filesToConvert &&
-# 	echo 
-# 	echo $mainScript
-# 	echo
-
-# 	cp -v $components/*.js $filesToConvert &&
-# 	echo "copied components"
-
-# 	echo "files in filesToConvert:"
-# 	ls $filesToConvert
-# 	echo
-# 	echo
-# 	echo
-
-# 	# osascript -e 'quit app "ExtendScript Toolkit"'
-# 	# osascript -e 'quit app "Visual Sudio Code"'
-
-# 	# estk version..
-# 	# /Volumes/Macintosh\ HD/Applications/Adobe\ ExtendScript\ Toolkit\ CC/ExtendScript\ Toolkit.app/Contents/MacOs/ExtendScript\ Toolkit -cmd $compiler >/dev/null 2>&1 &&
-
-# 	# VS Code version
-# 	node $HOME/.vscode/extensions/adobe.extendscript-debug-1.1.2/public-scripts/exportToJSX.js -n $filesToConvert
-
-# 	rm -rf $filesToConvert/*.js
-
-# 	ls $filesToConvert
-
-# 	# remove spaces and add eval function
-# 	evalString="eval(\""
-# 	closeString="\")"
-# 	for file in $filesToConvert/*;do
-# 		contents=`cat $file | tr -d " \t\n\r"`
-# 		echo $evalString$contents$closeString > $file
-# 	done
-
-# 	cp -v $filesToConvert/*.jsx $projectFolder
-# 	echo
-# 	echo "Copied main scripts"
-# 	echo
-	
-# 	cp -v $filesToConvert/*.jsxbin $binComp
-# 	echo
-# 	echo "Copied components"
-# 	echo
-
-# 	# mv $convertedFiles/*.jsx $projectFolder &&
-# 	# echo "Moved $(basename $projectFolder/*.jsx) binary file to project folder."
-
-# 	# mv $convertedFiles/*.jsxbin $binComp &&
-# 	# echo "Moved binary components to bin_comp"
-
-# 	# rm $filesToConvert/* &&
-# 	# echo "Successfully created binary files."
-# }
-
-
-
-
-
-# testing dev version
 projectToBinary()
-{
+{	
+	#jsx to jsxbin compiler script
+	compiler="~/automatic_binary_conversion/jsxbin_compiler.jsx"
+
 	projectFolder=${PWD} &&
 	mainScript=$projectFolder/*Dev.js* &&
 	components=$projectFolder/components &&
@@ -583,220 +460,97 @@ projectToBinary()
 		mkdir ~/automatic_binary_conversion/convert_to_binary
 		echo "made a convert_to_binary folder"
 	fi
+	convertedFiles=~/automatic_binary_conversion/binary_converted &&
+
+	#make sure there's a binary_converted folder
+	if [ ! -d ~/automatic_binary_conversion/binary_converted ]; then
+		mkdir ~/automatic_binary_conversion/binary_converted
+		echo "made a binary_converted folder"
+	fi
 	filesToConvert=~/automatic_binary_conversion/convert_to_binary
 
+	cp $mainScript $filesToConvert &&
+	echo "copied mainScript"
 
+	cp $components/*.js $filesToConvert &&
+	echo "copied components"
 
+	echo "files in filesToConvert:"
+	ls $filesToConvert
+	echo
+	echo
+	echo
 
-	# copy the main script(s)
-	cp $projectFolder/*Dev* $filesToConvert
+	osascript -e 'quit app "ExtendScript Toolkit"'
 
+	/Volumes/Macintosh\ HD/Applications/Adobe\ ExtendScript\ Toolkit\ CC/ExtendScript\ Toolkit.app/Contents/MacOs/ExtendScript\ Toolkit -cmd $compiler >/dev/null 2>&1 &&
 
-	# strip the dev label from the files
-	rename s/_Dev// $filesToConvert/*
+	mv $convertedFiles/*.jsx $projectFolder &&
+	echo "Moved $(basename $projectFolder/*.jsx) binary file to project folder."
 
+	mv $convertedFiles/*.jsxbin $binComp &&
+	echo "Moved binary components to bin_comp"
 
-	# convert main scripts to bin
-	vsCodeToBinary $filesToConvert
-
-	# reformat main scripts
-	for file in $filesToConvert/*;do
-		reformatBinFile $file
-	done
-
-	# remove leftover jsx files
-	rm -rf $filesToConvert/*.jsx
-
-	# fix the extensions
-	rename s/jsxbin/jsx/ $filesToConvert/*
-
-	# copy the main script(s) back to project folder
-	cp $filesToConvert/* $projectFolder
-
-	# clear out the filesToConvert folder
-	rm -rf $filesToConvert/*
-
-
-	# copy components
-	cp $components/*.js* $filesToConvert
-	
-	# convert components to bin
-	vsCodeToBinary $filesToConvert
-
-	# remove leftover js files
-	rm -rf $filesToConvert/*.js
-
-	# reformat components
-	for file in $filesToConvert/*;do
-		reformatBinFile $file
-	done
-
-
-	# copy components to bin_comp
-	cp $filesToConvert/* $binComp
-
-	# clear out the filesToConvert folder
-	rm -rf $filesToConvert/*
-
+	rm $filesToConvert/* &&
+	echo "Successfully created binary files."
 }
 
-reformatComponents()
-{
-	for file in $filesToConvert/*;do
-		reformatBinFile $file
-	done
-}
-
-reformatBinFile()
-{
-	if [[ -z "$1" ]];then
-		echo "please call out a file for conversion"
-		return
-	fi
-	# remove spaces and add eval function
-	evalString="eval(\""
-	closeString="\")"
-
-	file=$1
-	contents=`cat $file | tr -d " \t\n\r"`
-	echo $evalString$contents$closeString > $file
-
-	echo "reformatted $1"
-	
-}
-
-vsCodeToBinary()
-{
-	node $HOME/.vscode/extensions/adobe.extendscript-debug-1.1.2/public-scripts/exportToJSX.js -n $1
-}
-
-testFunction()
-{
-	echo $1
-	echo $2
-
-	if [[ ! $1 ]];then
-		echo "please call out a file for conversion"
-		return
-	fi
-
-	if [[ ! $2 ]];then
-		echo "please call out an output extension"
-		return
-	fi
-}
-
-fileToBinary()
-{
-	if [[ ! $1 ]];then
-		echo "please call out a file for conversion"
-		return
-	fi
-
-	if [[ ! $2 ]];then
-		echo "please call out an output extension"
-		return
-	fi
-
-	filesToConvert=~/automatic_binary_conversion/convert_to_binary
-
-	script=$1
-
-	scriptName="$(basename $script)"
-	# sourceDir="$(dirname $script)"
-	
-	if [[ $3 ]];then
-		sourceDir=$3
-	else
-		sourceDir=.
-	fi
-	ext="${script#*.}"
-
-	# empty the conversion folder
-	rm -rf $filesToConvert/*
-
-	# copy the script to the conversion folder
-	cp $script $filesToConvert
-
-
-	script=$filesToConvert/$scriptName
-
-	node $HOME/.vscode/extensions/adobe.extendscript-debug-1.1.2/public-scripts/exportToJSX.js -n $script
-
-	rm $script
-
-	script=$filesToConvert/*
-
-	# reformat main scripts
-	reformatBinFile $script
-
-	rename s/".jsxbin"/$2/ $filesToConvert/*
-
-	mv -i $filesToConvert/* $sourceDir
-
-}
 
 
 #function for converting a single file to binary instead
 #of a whole project (like the evalBin function)
-# fileToBinary()
-# {	
+fileToBinary()
+{	
 
-# 	if [[ -z "$1" ]];then
-# 		echo "please call out a file for conversion"
-# 		return
-# 	fi
+	if [[ -z "$1" ]];then
+		echo "please call out a file for conversion"
+		return
+	fi
 
-# 	#jsx to jsxbin compiler script
-# 	compiler=~/automatic_binary_conversion/jsxbin_compiler.jsx
+	#jsx to jsxbin compiler script
+	compiler=~/automatic_binary_conversion/jsxbin_compiler.jsx
 
-# 	projectFolder=${PWD} &&
-# 	mainScript=$projectFolder/$1 &&
+	projectFolder=${PWD} &&
+	mainScript=$projectFolder/$1 &&
 
-# 	#make sure there's a convert_to_binary folder
-# 	if [ ! -d ~/automatic_binary_conversion/convert_to_binary ]; then
-# 		mkdir ~/automatic_binary_conversion/convert_to_binary
-# 		echo "made a convert_to_binary folder"
-# 	fi
-# 	convertedFiles=~/automatic_binary_conversion/binary_converted &&
+	#make sure there's a convert_to_binary folder
+	if [ ! -d ~/automatic_binary_conversion/convert_to_binary ]; then
+		mkdir ~/automatic_binary_conversion/convert_to_binary
+		echo "made a convert_to_binary folder"
+	fi
+	convertedFiles=~/automatic_binary_conversion/binary_converted &&
 
-# 	#make sure there's a binary_converted folder
-# 	if [ ! -d ~/automatic_binary_conversion/binary_converted ]; then
-# 		mkdir ~/automatic_binary_conversion/binary_converted
-# 		echo "made a binary_converted folder"
-# 	fi
-# 	filesToConvert=~/automatic_binary_conversion/convert_to_binary
+	#make sure there's a binary_converted folder
+	if [ ! -d ~/automatic_binary_conversion/binary_converted ]; then
+		mkdir ~/automatic_binary_conversion/binary_converted
+		echo "made a binary_converted folder"
+	fi
+	filesToConvert=~/automatic_binary_conversion/convert_to_binary
 
-# 	cp $mainScript $filesToConvert &&
-# 	echo "copied $mainScript"
+	cp $mainScript $filesToConvert &&
+	echo "copied $mainScript"
 
-# 	echo "the following files have been copied to filesToConvert"
-# 	ls $filesToConvert
+	echo "the following files have been copied to filesToConvert"
+	ls $filesToConvert
 
-# 	osascript -e 'quit app "ExtendScript Toolkit"'
+	osascript -e 'quit app "ExtendScript Toolkit"'
 
-# 	#it's not an error if i don't get a message about it.
-# 	/Volumes/Macintosh\ HD/Applications/Adobe\ ExtendScript\ Toolkit\ CC/ExtendScript\ Toolkit.app/Contents/MacOs/ExtendScript\ Toolkit -cmd $compiler >/dev/null 2>&1 &&
+	#it's not an error if i don't get a message about it.
+	/Volumes/Macintosh\ HD/Applications/Adobe\ ExtendScript\ Toolkit\ CC/ExtendScript\ Toolkit.app/Contents/MacOs/ExtendScript\ Toolkit -cmd $compiler >/dev/null 2>&1 &&
 	
-# 	#noisy version..
-# 	# /Volumes/Macintosh\ HD/Applications/Adobe\ ExtendScript\ Toolkit\ CC/ExtendScript\ Toolkit.app/Contents/MacOs/ExtendScript\ Toolkit -cmd $compiler &&
+	#noisy version..
+	# /Volumes/Macintosh\ HD/Applications/Adobe\ ExtendScript\ Toolkit\ CC/ExtendScript\ Toolkit.app/Contents/MacOs/ExtendScript\ Toolkit -cmd $compiler &&
 
-# 	mv $convertedFiles/*.jsx* $projectFolder &&
+	mv $convertedFiles/*.jsx* $projectFolder &&
 
-# 	rm $filesToConvert/* &&
-# 	echo "Successfully created binary files."
-# }
+	rm $filesToConvert/* &&
+	echo "Successfully created binary files."
+}
 
 
 bin()
 {
-	if [[ $2 ]];then
-		if [[ $3 ]];then
-			fileToBinary $1 $2 $3
-		else
-			fileToBinary $1 $2
-		fi
-	elif [[ $1 ]];then
+	if [[ $1 ]];then
 		fileToBinary $1
 	else
 		projectToBinary
@@ -830,7 +584,19 @@ targets()
 
 viewLogs()
 {
-	subl "$nlogs"
+	subl $nlogs
+}
+
+devMode()
+{
+	#update dev mode for illustrator scripts
+	prefFile=~/Documents/script_preferences/dev_utilities.txt
+	if [[ $1 ]];then
+		echo -e $1 | tr -d '\n' > $prefFile
+		echo "Set devMode preference to:"
+		cat $prefFile
+		echo
+	fi
 }
 
 
@@ -840,7 +606,7 @@ viewLogs()
 
 owDrLib()
 {
-	dest="/Volumes/CustomizationDR/Library/Scripts/Script_Resources/Data"
+	dest="/Volumes/CustomizationDR/Library/Scripts/Script Resources/Data"
 	cp $ndata/central_library.js "$dest"
 	cp $ndata/build_template_library.js "$dest"
 	cp $ndata/aa_special_instructions.js "$dest"
@@ -870,9 +636,9 @@ owAddArt()
 	comp="$auto/add_artwork/bin_comp"
 	cp $addArt $nss && echo "Successfully overwrote Add_Artwork.jsx on network." &&
 	rm $naacomp/*.js* &&
-	rm $drComp/add_artwork/*.js* &&
+	# rm $drComp/add_artwork/*.js* &&
 	cp $comp/*.js* $naacomp && echo "Successfully overwrote Add Artwork components on network."
-	cp $comp/*.js* $drComp/add_artwork && echo "Successfully overwrote Add Artwork components on DR network."
+	# cp $comp/*.js* $drComp/add_artwork && echo "Successfully overwrote Add Artwork components on DR network."
 }
 
 owBreakSymbolLinks()
@@ -905,7 +671,7 @@ owBuildProd()
 	cp -v $bp/Adjust_Prod_File.jsx $nss &&	
 	cp -v $bpc/*.js* $ncomp/build_prod_file &&
 	echo "Successfully overwrote US Scripts" &&
-	cp -v $bpc/*.js* $drComp/build_prod_file &&
+	cp $bpc/*.js* $drComp/build_prod_file &&
 	echo "Successfully overwrote DR scripts."
 }
 
@@ -940,8 +706,8 @@ owBuildMock()
 {
 	bm="$auto/build_mockup"
 	bmc="$bm/bin_comp"
-	cp -v $bm/Build_Mockup.jsx $nms &&
-	cp -v $bmc/*.js* $nbmcomp &&
+	cp $bm/Build_Mockup.jsx $nms &&
+	cp $bmc/*.js* $nbmcomp &&
 	echo "Successfully overwrote build_mockup scripts."
 }
 
@@ -960,16 +726,19 @@ owBuildMockBeta()
 owMockupExporter()
 {
 	dir="$auto/mockup_exporter"
-
 	script="$dir/Mockup_Exporter.jsx"
-	cp -v $script $nme &&
-	script="$dir/3D_Builder_Blank_SVG_Exporter.jsx"
-	cp -v $script $nme &&
-	script="$dir/Setup_UV_Map_Template.jsx"
-	cp -v $script $nme &&
+	script2="$dir/3D_Builder_Blank_SVG_Exporter.jsx"
+	script3="$dir/Setup_UV_Map_Template.jsx"
 
-	cp -v $dir/bin_comp/*.js* $nmecomp &&
+	cp $script $script2 $script3 $nme &&
+	updateMockupExporterComponents &&
 	echo "Successfully overwrote Mockup_Exporter scripts."
+}
+
+updateMockupExporterComponents()
+{
+	binComps="$dir/bin_comp"
+	cp $binComps/* $nmecomp
 }
 
 owInfo()
